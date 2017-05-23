@@ -1,0 +1,22 @@
+from unittest import TestCase
+
+
+class TestDraw_line(TestCase):
+    def test_draw_line(self):
+        try:
+            from build import draw_line
+        except ImportError:
+            self.assertFalse("no function found")
+
+        screen = []
+        for _ in range(20):
+            screen.append(int('00000000', base=2))
+
+        draw_line(screen, width=32, x1=68, x2=80)
+        self.assertEqual(screen[8], int('00001111', base=2))
+        self.assertEqual(screen[9], int('11111111', base=2))
+        self.assertEqual(screen[10], int('10000000', base=2))
+        draw_line(screen, width=32, x1=2, x2=6)
+        self.assertEqual(screen[0], int('00111110', base=2))
+        draw_line(screen, width=32, x1=10, x2=13)
+        self.assertEqual(screen[1], int('00111100', base=2))
